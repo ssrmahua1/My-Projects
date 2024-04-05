@@ -104,67 +104,83 @@
         </div>
     </div>
 
-    <script>
-        // Function to enable project links
-        function enableProjectLinks() {
-            document.querySelectorAll('.project-link').forEach(function(link) {
-                link.style.pointerEvents = 'auto';
-            });
-        }
+<script>
+    // Variable to track the remaining attempts
+    var remainingAttempts = 3;
 
-        // Show the popup with CAPTCHA
-        function showPopup() {
-            generatePopupCaptcha();
-            document.getElementById('popup').style.display = 'flex';
-        }
+    // Function to enable project links
+    function enableProjectLinks() {
+        document.querySelectorAll('.project-link').forEach(function(link) {
+            link.style.pointerEvents = 'auto';
+        });
+    }
 
-        // Generate a popup math CAPTCHA involving numbers from 1 to 50
-        function generatePopupCaptcha() {
-            var num1 = Math.floor(Math.random() * 50) + 1;
-            var num2 = Math.floor(Math.random() * 50) + 1;
-            var operator = Math.random() < 0.5 ? '+' : '-';
-            var expression = num1 + ' ' + operator + ' ' + num2;
-            document.getElementById('popup-captcha-expression').textContent = expression;
-        }
+    // Show the popup with CAPTCHA
+    function showPopup() {
+        generatePopupCaptcha();
+        document.getElementById('popup').style.display = 'flex';
+    }
 
-        // Check if the user's answer to the popup CAPTCHA is correct
-        function checkPopupCaptcha() {
-            var userInput = parseInt(document.getElementById('popup-captcha-input').value);
-            var captchaExpression = document.getElementById('popup-captcha-expression').textContent;
-            var result = eval(captchaExpression);
-            if (userInput === result) {
-                alert('CAPTCHA solved successfully! Please wait while we verify.');
-                // Hide popup
-                document.getElementById('popup').style.display = 'none';
-                // Display the countdown timer
-                var countdown = 0; // Countdown duration in seconds
-                var countdownInterval = setInterval(function() {
-                    document.getElementById('countdown-timer').textContent = countdown;
-                    countdown--;
-                    if (countdown < 0) {
-                        clearInterval(countdownInterval);
-                        // Enable project links
-                        enableProjectLinks();
-                    }
-                }, 1000); // Update timer every second
-                document.getElementById('countdown-message').style.display = 'block';
-            } else {
-                alert('Incorrect answer. Please try again.');
-                // Regenerate a new CAPTCHA
+    // Generate a popup math CAPTCHA involving numbers from 1 to 50
+    function generatePopupCaptcha() {
+        var num1 = Math.floor(Math.random() * 50) + 1;
+        var num2 = Math.floor(Math.random() * 50) + 1;
+        var operator = Math.random() < 0.5 ? '+' : '-';
+        var expression = num1 + ' ' + operator + ' ' + num2;
+        document.getElementById('popup-captcha-expression').textContent = expression;
+    }
+
+    // Check if the user's answer to the popup CAPTCHA is correct
+    function checkPopupCaptcha() {
+        var userInput = parseInt(document.getElementById('popup-captcha-input').value);
+        var captchaExpression = document.getElementById('popup-captcha-expression').textContent;
+        var result = eval(captchaExpression);
+        
+        if (userInput === result) {
+            alert('CAPTCHA solved successfully! Please wait while we verify.');
+            // Hide popup
+            document.getElementById('popup').style.display = 'none';
+            // Display the countdown timer
+            var countdown = 0; // Countdown duration in seconds
+            var countdownInterval = setInterval(function() {
+                document.getElementById('countdown-timer').textContent = countdown;
+                countdown--;
+                if (countdown < 0) {
+                    clearInterval(countdownInterval);
+                    // Enable project links
+                    enableProjectLinks();
+                }
+            }, 1000); // Update timer every second
+            document.getElementById('countdown-message').style.display = 'block';
+        } else {
+            remainingAttempts--;
+            if (remainingAttempts === 0) {
+                // If no attempts remaining, remove the submit button
+                var submitButton = document.getElementById('popup-submit-button');
+                submitButton.parentNode.removeChild(submitButton);
+            }
+            alert('Incorrect answer. Please try again. Remaining attempts: ' + remainingAttempts);
+            if (remainingAttempts > 0) {
+                // Regenerate a new CAPTCHA if attempts remain
                 generatePopupCaptcha();
+            } else {
+                // Hide popup if no attempts remaining
+                document.getElementById('popup').style.display = 'none';
             }
         }
+    }
 
-        // Generate initial CAPTCHA when the page loads
-        window.onload = function() {
-            generatePopupCaptcha();
-            // Disable project links initially
-            document.querySelectorAll('.project-link').forEach(function(link) {
-                link.style.pointerEvents = 'none';
-            });
-            // Show popup with CAPTCHA
-            showPopup();
-        };
-    </script>
+    // Generate initial CAPTCHA when the page loads
+    window.onload = function() {
+        generatePopupCaptcha();
+        // Disable project links initially
+        document.querySelectorAll('.project-link').forEach(function(link) {
+            link.style.pointerEvents = 'none';
+        });
+        // Show popup with CAPTCHA
+        showPopup();
+    };
+</script>
+
 </body>
 </html>
