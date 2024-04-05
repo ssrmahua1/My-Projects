@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Projects</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap">
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: #000;
             color: #fff;
-            font-family: 'Roboto Condensed', sans-serif;
+            font-family: Arial, sans-serif;
         }
         .container {
             width: 80%;
@@ -26,8 +25,8 @@
         .project-link {
             display: inline-block;
             margin: 10px;
-            padding: 20px 50px; /* Adjust the padding for the desired size */
-            border-radius: 50px; /* Make border-radius half of the height to create an oval shape */
+            padding: 20px 50px;
+            border-radius: 25px; /* Adjust the border-radius to control the roundness */
             background-color: #f00;
             font-size: 1.5em;
             text-decoration: none;
@@ -39,16 +38,73 @@
             background-color: #0f0;
             text-shadow: 0 0 15px #0f0;
         }
+        /* Popup styles */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        /* Modified styles for CAPTCHA text */
+        #popup-captcha-text {
+            font-weight: bold; /* Set the font weight to bold */
+            color: #000; /* Set the color to black */
+        }
+        #popup-captcha-expression {
+            font-weight: bold; /* Set the font weight to bold */
+            color: #000; /* Set the color to black */
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>My Projects</h1>
-        <a href="https://ssrmahua2.github.io/IPLin4k/" class="project-link">Watch IPL in 4K</a>
-        <a href="https://ssrmahua2.github.io/Link-to-Video-Player/" class="project-link">Video Player</a>
-        <a href="https://ssrmahua2.github.io/Object-detection-Sahil/" class="project-link">Object Detection Tool</a>
+        <header>
+            <!-- No navigation links -->
+        </header>
+
+        <main>
+            <h1>My Projects</h1>
+            <!-- Project links -->
+            <a href="https://ssrmahua2.github.io/IPLin4k/" class="project-link" id="ipl-link" style="display: none;">Watch IPL in 4K</a>
+            <a href="https://ssrmahua2.github.io/Link-to-Video-Player/" class="project-link" id="video-link">Video Player</a>
+            <a href="https://ssrmahua2.github.io/Object-detection-Sahil/" class="project-link" id="object-detection-link">Object Detection Tool</a>
+        </main>
+
+        <footer>
+            <!-- StylishTheme footer (if it has one) -->
+            <p>&copy; 2024 My Projects</p>
+        </footer>
     </div>
-<script>
+
+    <!-- Popup HTML -->
+    <div class="overlay" id="popup">
+        <div class="popup">
+            <p id="popup-captcha-text">Verify CAPTCHA:</p>
+            <p><span id="popup-captcha-expression"></span></p>
+            <input type="text" id="popup-captcha-input" placeholder="Enter CAPTCHA">
+            <button onclick="checkPopupCaptcha()">Submit</button>
+            <!-- Countdown timer and message -->
+            <div id="countdown-message" style="display: none;">
+                Please wait, we are verifying you...
+                <br>
+                <span id="countdown-timer">5</span> seconds
+            </div>
+        </div>
+    </div>
+
+    <script>
         // Function to enable project links
         function enableProjectLinks() {
             document.querySelectorAll('.project-link').forEach(function(link) {
@@ -110,8 +166,5 @@
             showPopup();
         };
     </script>
-</body>
-</html>
-
 </body>
 </html>
