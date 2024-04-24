@@ -90,7 +90,7 @@
     <div class="container">
         <header>
             <!-- Login button -->
-            <button class="login-button" onclick="window.location.href='https://ssrmahua2.github.io/Project-Login/'">Login</button>
+            <button class="login-button" <button class="login-button" onclick="showLoginPopup()">Login</button>
         </header>
 
         <main>
@@ -134,7 +134,16 @@
             </div>
         </div>
     </div>
-
+ <!-- Popup HTML -->
+    <div class="overlay" id="login-popup">
+        <div class="popup">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username"><br><br>
+            <input type="password" id="password" placeholder="Password"><br><br>
+            <button onclick="validateLogin()">Submit</button>
+            <p id="login-error" style="display: none; color: red;">Invalid username or password</p>
+        </div>
+    </div>
 <script>
     // Variable to track the remaining attempts
     var remainingAttempts = 3;
@@ -223,6 +232,25 @@
         // Show the user's IP address
         showIpAddress();
     };
+  // Function to show the login popup
+    function showLoginPopup() {
+        document.getElementById('login-popup').style.display = 'flex';
+    }
+
+    // Function to validate login credentials
+    function validateLogin() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        // Check if username and password match
+        if (username === "Sahil" && password === "Sahil123*") {
+            // Redirect to the specified URL on successful login
+            window.location.href = "https://github.com/ssrmahua2/My-Projects/";
+        } else {
+            // Display error message if login fails
+            document.getElementById('login-error').style.display = 'block';
+        }
+    }
 </script>
 
 </body>
