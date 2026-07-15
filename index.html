@@ -3,213 +3,500 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects</title>
+    <title>Sahil Projects | 2026 Showcase</title>
     <style>
+        :root {
+            --bg-color: #0a0a12;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary-glow: #00f2fe;
+            --secondary-glow: #4facfe;
+            --text-color: #ffffff;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
         }
+
         .container {
-            width: 80%;
-            margin: 100px auto;
-            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
         }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 50px;
-            text-shadow: 0 0 20px #0ff;
+
+        header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 60px;
         }
-        .project-link {
-            display: inline-block;
-            margin: 10px;
-            padding: 20px 50px;
-            border-radius: 25px; /* Adjust the border-radius to control the roundness */
-            background-color: #f00;
-            font-size: 1.5em;
-            text-decoration: none;
+
+        .login-button {
+            background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
             color: #fff;
-            text-shadow: 0 0 10px #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 8, 68, 0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 8, 68, 0.5);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+            filter: drop-shadow(0 2px 8px rgba(0, 242, 254, 0.3));
+        }
+
+        /* 3D Grid Grid & Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+            perspective: 1000px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) rotateX(4deg) rotateY(-2deg);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 242, 254, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 40%, var(--bg-color));
+        }
+
+        .project-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .project-desc {
+            font-size: 0.9em;
+            color: #a0a0b5;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .action-tag {
+            font-size: 0.85em;
+            font-weight: bold;
+            color: var(--primary-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Social Icons */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #a0a0b5;
+            font-size: 0.9em;
             transition: all 0.3s ease;
         }
-        .project-link:hover {
-            background-color: #0f0;
-            text-shadow: 0 0 15px #0f0;
+
+        .social-link img {
+            width: 45px;
+            height: 45px;
+            margin-bottom: 8px;
+            filter: grayscale(20%) contrast(110%);
+            transition: transform 0.3s ease;
         }
-        /* Popup styles */
+
+        .social-link:hover {
+            color: #fff;
+        }
+
+        .social-link:hover img {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--card-border);
+            color: #666680;
+            font-size: 0.9em;
+        }
+
+        /* Popups */
         .overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 10, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             display: none;
             justify-content: center;
             align-items: center;
+            z-index: 1000;
         }
+
         .popup {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #141425 0%, #1a1a36 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
             text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: popupSpawn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        /* Modified styles for CAPTCHA text */
-        #popup-captcha-text {
-            font-weight: bold; /* Set the font weight to bold */
-            color: #000; /* Set the color to black */
+
+        @keyframes popupSpawn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
-        #popup-captcha-expression {
-            font-weight: bold; /* Set the font weight to bold */
-            color: #000; /* Set the color to black */
+
+        .popup h2 {
+            margin-top: 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
-        /* Login button styles */
-        .login-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: #f00;
+
+        .popup input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
             color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+            margin-bottom: 15px;
             font-size: 1em;
-            text-transform: uppercase;
-            transition: background-color 0.3s;
+            transition: border-color 0.3s;
         }
-        .login-button:hover {
-            background-color: #0f0;
+
+        .popup input:focus {
+            outline: none;
+            border-color: var(--primary-glow);
+        }
+
+        .popup button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--secondary-glow), var(--primary-glow));
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+            transition: all 0.3s;
+        }
+
+        .popup button:hover {
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .captcha-box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            border: 1px dashed rgba(255,255,255,0.2);
+        }
+
+        #popup-captcha-expression {
+            color: var(--primary-glow);
+            font-weight: bold;
+        }
+
+        #countdown-message {
+            color: var(--primary-glow);
+            font-size: 1.2em;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         <header>
-            <!-- Login button -->
-            <button class="login-button" <button class="login-button" onclick="showLoginPopup()">Login</button>
+            <button class="login-button" onclick="showLoginPopup()">Login</button>
         </header>
 
         <main>
-            <h1>We will back soon</h1>
-            <!-- Project links -->
-           
+            <h1>Sahil Projects</h1>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <a href="https://ssrmahua1.github.io/IPLin4k/" class="project-card project-link" target="_blank">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=600&q=80')"></div>
+                    <div class="project-info">
+                        <div>
+                            <h3 class="project-title">Watch IPL in 4K</h3>
+                            <p class="project-desc">High-definition sports streaming architecture optimization demo hub.</p>
+                        </div>
+                        <span class="action-tag">Launch Live Stream →</span>
+                    </div>
+                </a>
+
+                <!-- Project 2 -->
+                <a href="https://ssrmahua1.github.io/Link-to-Video-Player/" class="project-card project-link" target="_blank">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=600&q=80')"></div>
+                    <div class="project-info">
+                        <div>
+                            <h3 class="project-title">Video Player</h3>
+                            <p class="project-desc">Custom customized web player engine handling high dynamic range media elements.</p>
+                        </div>
+                        <span class="action-tag">Open Player →</span>
+                    </div>
+                </a>
+
+                <!-- Project 3 -->
+                <a href="https://ssrmahua1.github.io/Object-detection-Sahil/" class="project-card project-link" target="_blank">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1527474305487-b87b222841cc?auto=format&fit=crop&w=600&q=80')"></div>
+                    <div class="project-info">
+                        <div>
+                            <h3 class="project-title">Object Detection Tool</h3>
+                            <p class="project-desc">Real-time deep learning visualization wrapper running directly client-side via browser camera hooks.</p>
+                        </div>
+                        <span class="action-tag">Initialize Vision AI →</span>
+                    </div>
+                </a>
+
+                <!-- Project 4 -->
+                <a href="https://ssrmahua1.github.io/Online-screen-Recorder/" class="project-card project-link" target="_blank">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80')"></div>
+                    <div class="project-info">
+                        <div>
+                            <h3 class="project-title">Online Screen Recorder</h3>
+                            <p class="project-desc">Lightweight canvas and media stream capture workflow interface without external dependencies.</p>
+                        </div>
+                        <span class="action-tag">Start Recording →</span>
+                    </div>
+                </a>
+
+                <!-- Project 5 -->
+                <a href="https://ssrmahua1.github.io/IRPES/" class="project-card project-link" target="_blank">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1532103054090-334e6e60ab29?auto=format&fit=crop&w=600&q=80')"></div>
+                    <div class="project-info">
+                        <div>
+                            <h3 class="project-title">IRPES-Railway Tools</h3>
+                            <p class="project-desc">Logistics routing tools built for processing complex transit schedules and systems.</p>
+                        </div>
+                        <span class="action-tag">Access Terminal →</span>
+                    </div>
+                </a>
+            </div>
+        </main>
+
+        <div class="socials">
+            <a class="social-link" href="https://www.instagram.com/i_sahil.saurav/" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                <span>Instagram</span>
+            </a>
+            <a class="social-link" href="https://www.linkedin.com/in/sahil-saurav-5520a616b/" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinkedIn_Logo.svg/1280px-LinkedIn_Logo.svg.png" alt="LinkedIn">
+                <span>LinkedIn</span>
+            </a>
+        </div>
+        
         <footer>
-            <!-- StylishTheme footer (if it has one) -->
-            <p>&copy; 2024 Sahil</p>
-         
+            <p>&copy; 2026 Sahil. All Rights Reserved.</p>
+        </footer>
     </div>
 
-    <!-- Popup HTML -->
+    <!-- Security Gateway CAPTCHA Popup -->
     <div class="overlay" id="popup">
-       
-            <!-- Countdown timer and message -->
-            <div id="countdown-message" style="display: none;">
-                Please wait, we are verifying you...
-                <br>
-                <span id="countdown-timer">5</span> seconds
+        <div class="popup" id="captcha-container">
+            <h2>Security Verification</h2>
+            <p style="color: #a0a0b5; font-size: 0.9em; margin-bottom: 20px;">Please solve the math puzzle to enable project access links.</p>
+            <div class="captcha-box">
+                <span id="popup-captcha-expression"></span>
             </div>
+            <input type="number" id="popup-captcha-input" placeholder="Your Answer">
+            <button id="popup-submit-button" onclick="checkPopupCaptcha()">Verify System</button>
+        </div>
+        
+        <div class="popup" id="countdown-message" style="display: none;">
+            <p>Please wait, verifying core configurations...</p>
+            <div style="font-size: 2em; font-weight: bold; margin: 15px 0;" id="countdown-timer">5</div>
+            <p style="font-size: 0.8em; color: #666680;">Seconds remaining</p>
         </div>
     </div>
- <!-- Popup HTML -->
+
+    <!-- System Control Login Popup -->
     <div class="overlay" id="login-popup">
         <div class="popup">
-            <h2>Login</h2>
-            <input type="text" id="username" placeholder="Username"><br><br>
-            <input type="password" id="password" placeholder="Password"><br><br>
-            <button onclick="validateLogin()">Submit</button>
-            <p id="login-error" style="display: none; color: red;">Invalid username or password</p>
+            <h2>Administrative Login</h2>
+            <p style="color: #a0a0b5; font-size: 0.9em; margin-bottom: 20px;">Provide tokens to access core project workspace repositories.</p>
+            <input type="text" id="username" placeholder="Console Username">
+            <input type="password" id="password" placeholder="System Password">
+            <button onclick="validateLogin()">Authorize Entry</button>
+            <p id="login-error" style="display: none; color: #ff0844; margin-top: 15px; font-size: 0.9em;">Access Denied: Invalid signature credentials.</p>
         </div>
     </div>
+
 <script>
-    // Variable to track the remaining attempts
     var remainingAttempts = 3;
 
-   
-    // Function to enable project links
+    function generatePopupCaptcha() {
+        var num1 = Math.floor(Math.random() * 10) + 1;
+        var num2 = Math.floor(Math.random() * 10) + 1;
+        document.getElementById('popup-captcha-expression').textContent = num1 + " + " + num2;
+    }
+
     function enableProjectLinks() {
         document.querySelectorAll('.project-link').forEach(function(link) {
             link.style.pointerEvents = 'auto';
+            link.style.opacity = '1';
         });
     }
 
-    // Show the popup with CAPTCHA
     function showPopup() {
         generatePopupCaptcha();
         document.getElementById('popup').style.display = 'flex';
     }
 
-    // Check if the user's answer to the popup CAPTCHA is correct
     function checkPopupCaptcha() {
         var userInput = parseInt(document.getElementById('popup-captcha-input').value);
         var captchaExpression = document.getElementById('popup-captcha-expression').textContent;
         var result = eval(captchaExpression);
         
         if (userInput === result) {
-            alert('CAPTCHA solved successfully! Please wait while we verify.');
-            // Hide popup
-            document.getElementById('popup').style.display = 'none';
-            // Display the countdown timer
-            var countdown = 0; // Countdown duration in seconds
+            document.getElementById('captcha-container').style.display = 'none';
+            document.getElementById('countdown-message').style.display = 'block';
+            
+            var countdown = 5; 
+            document.getElementById('countdown-timer').textContent = countdown;
+            
             var countdownInterval = setInterval(function() {
-                document.getElementById('countdown-timer').textContent = countdown;
                 countdown--;
-                if (countdown < 0) {
+                document.getElementById('countdown-timer').textContent = countdown;
+                if (countdown <= 0) {
                     clearInterval(countdownInterval);
-                    // Enable project links
+                    document.getElementById('popup').style.display = 'none';
                     enableProjectLinks();
                 }
-            }, 1000); // Update timer every second
-            document.getElementById('countdown-message').style.display = 'block';
+            }, 1000);
         } else {
             remainingAttempts--;
             if (remainingAttempts === 0) {
-                // If no attempts remaining, remove the submit button
                 var submitButton = document.getElementById('popup-submit-button');
-                submitButton.parentNode.removeChild(submitButton);
-            }
-            alert('Incorrect answer. Please try again. Remaining attempts: ' + remainingAttempts);
-            if (remainingAttempts > 0) {
-                // Regenerate a new CAPTCHA if attempts remain
-                generatePopupCaptcha();
-            } else {
-                // Hide popup if no attempts remaining
+                if(submitButton) submitButton.parentNode.removeChild(submitButton);
+                alert('Access locked. No attempts remaining.');
                 document.getElementById('popup').style.display = 'none';
+            } else {
+                alert('Incorrect answer. Remaining attempts: ' + remainingAttempts);
+                generatePopupCaptcha();
+                document.getElementById('popup-captcha-input').value = '';
             }
         }
     }
 
-    // Generate initial CAPTCHA when the page loads
     window.onload = function() {
-        generatePopupCaptcha();
-        // Disable project links initially
         document.querySelectorAll('.project-link').forEach(function(link) {
             link.style.pointerEvents = 'none';
+            link.style.opacity = '0.6';
         });
-        // Show popup with CAPTCHA
         showPopup();
-  // Function to show the login popup
+    };
+
     function showLoginPopup() {
         document.getElementById('login-popup').style.display = 'flex';
     }
 
-    // Function to validate login credentials
     function validateLogin() {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
 
-        // Check if username and password match
         if (username === "Sahil" && password === "Sahil123*") {
-            // Redirect to the specified URL on successful login
             window.location.href = "https://github.com/ssrmahua2/My-Projects/";
         } else {
-            // Display error message if login fails
             document.getElementById('login-error').style.display = 'block';
         }
     }
+
+    // Close overlays when clicking outside the target content box
+    document.querySelectorAll('.overlay').forEach(item => {
+        item.addEventListener('click', function(e) {
+            if(e.target === this && this.id === 'login-popup') {
+                this.style.display = 'none';
+            }
+        });
+    });
 </script>
 
 </body>
